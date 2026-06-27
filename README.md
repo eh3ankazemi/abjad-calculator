@@ -1,2 +1,2 @@
 Just use it;
-it's totally free and opensorse
+it's totally free and opensuse
