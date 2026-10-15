@@ -1,6 +1,5 @@
 ﻿param(
-  [switch]$Release,
-  [string]$ServerUrl
+  [switch]$Release
 )
 
 $ErrorActionPreference = 'Stop'
@@ -38,6 +37,37 @@ try {
     }
   }
 
+  $javaCompiler = if ([string]::IsNullOrWhiteSpace($env:JAVA_HOME)) {
+    (Get-Command 'javac' -ErrorAction SilentlyContinue).Source
+  } else {
+    Join-Path $env:JAVA_HOME 'bin\javac.exe'
+  }
+  $javaMajorVersion = 0
+  if ($javaCompiler -and (Test-Path -LiteralPath $javaCompiler -PathType Leaf)) {
+    $javaVersionOutput = & $javaCompiler -version 2>&1
+    if ($javaVersionOutput -match 'javac\s+(\d+)') {
+      $javaMajorVersion = [int]$Matches[1]
+    }
+  }
+
+  if ($javaMajorVersion -lt 21) {
+    $androidStudioJavaHome = 'C:\Program Files\Android\Android Studio\jbr'
+    $androidStudioJavaCompiler = Join-Path $androidStudioJavaHome 'bin\javac.exe'
+    if (Test-Path -LiteralPath $androidStudioJavaCompiler -PathType Leaf) {
+      $javaVersionOutput = & $androidStudioJavaCompiler -version 2>&1
+      if ($javaVersionOutput -match 'javac\s+(\d+)' -and [int]$Matches[1] -ge 21) {
+        $env:JAVA_HOME = $androidStudioJavaHome
+        $env:Path = (Join-Path $androidStudioJavaHome 'bin') + ';' + $env:Path
+        $javaMajorVersion = [int]$Matches[1]
+        Write-Host ('Using Android Studio JDK ' + $javaMajorVersion + '.') -ForegroundColor Green
+      }
+    }
+  }
+
+  if ($javaMajorVersion -lt 21) {
+    throw 'Android builds require JDK 21 or newer. Set JAVA_HOME to a JDK 21 installation and run this script again.'
+  }
+
   if ($Release) {
     $missingSigningVariables = @($releaseSigningVariables | Where-Object { [string]::IsNullOrWhiteSpace([Environment]::GetEnvironmentVariable($_, 'Process')) })
     if ($missingSigningVariables.Count -gt 0) {
@@ -48,28 +78,9 @@ try {
     }
   }
 
-  if (-not [string]::IsNullOrWhiteSpace($ServerUrl)) {
-    try {
-      [System.Uri]$parsedServerUrl = $ServerUrl
-      if ($parsedServerUrl.Scheme -notin @('http', 'https') -or [string]::IsNullOrWhiteSpace($parsedServerUrl.Host)) {
-        throw 'invalid URL'
-      }
-    }
-    catch {
-      throw ('ServerUrl نامعتبر است: ' + $ServerUrl)
-    }
+  Write-Host 'نسخهٔ وب آفلاین ساخته و داخل APK بسته‌بندی می‌شود.' -ForegroundColor Green
 
-    $env:CAPACITOR_SERVER_URL = $ServerUrl.TrimEnd('/')
-    $env:CAPACITOR_ALLOW_CLEARTEXT = if ($parsedServerUrl.Scheme -eq 'http') { 'true' } else { 'false' }
-
-    if ($parsedServerUrl.Host -eq 'localhost' -or $parsedServerUrl.Host -eq '127.0.0.1') {
-      Write-Warning 'در Android، localhost به خود دستگاه اشاره می‌کند. برای Emulator از 10.0.2.2:3000 و برای گوشی واقعی از IP شبکه‌ی کامپیوتر استفاده کنید.'
-    }
-  } else {
-    Remove-Item Env:CAPACITOR_SERVER_URL -ErrorAction SilentlyContinue
-    Remove-Item Env:CAPACITOR_ALLOW_CLEARTEXT -ErrorAction SilentlyContinue
-    Write-Host 'نشانی پیش‌فرض سایت در پیکربندی اندروید استفاده می‌شود.' -ForegroundColor Yellow
-  }
+  Invoke-Step 'bun' @('run', 'build')
 
   if (-not (Test-Path -LiteralPath $androidRoot -PathType Container)) {
     Invoke-Step 'bunx' @('cap', 'add', 'android')
@@ -88,17 +99,18 @@ try {
 
   $variant = if ($Release) { 'release' } else { 'debug' }
   $apkDirectory = Join-Path $androidRoot ('app\build\outputs\apk\' + $variant)
-  $apkCandidates = @(
-    (Join-Path $apkDirectory ('app-' + $variant + '.apk')),
-    (Join-Path $apkDirectory ('app-' + $variant + '-unsigned.apk'))
-  )
+  $apkCandidates = if ($Release) {
+    @((Join-Path $apkDirectory 'app-release.apk'))
+  } else {
+    @((Join-Path $apkDirectory 'app-debug.apk'))
+  }
   $apkPath = $apkCandidates | Where-Object {
     Test-Path -LiteralPath $_
   } | Select-Object -First 1
 
   if ($apkPath) {
     if ($Release) {
-      $downloadPath = Join-Path $projectRoot 'public\downloads\estelameram.apk'
+      $downloadPath = Join-Path $projectRoot 'public\downloads\abjad-calculator.apk'
       Copy-Item -LiteralPath $apkPath -Destination $downloadPath -Force
       Write-Host 'APK انتشار برای دانلود مستقیم به‌روزرسانی شد:' -ForegroundColor Green
       Write-Host $downloadPath
@@ -108,6 +120,9 @@ try {
     Write-Host 'APK آماده شد:' -ForegroundColor Green
     Write-Host $apkPath
   } else {
+    if ($Release) {
+      throw ('APK انتشار امضاشده ساخته نشد یا در مسیر مورد انتظار پیدا نشد: ' + $apkDirectory)
+    }
     throw ('APK ساخته نشد یا در مسیر مورد انتظار پیدا نشد: ' + $apkDirectory)
   }
 }

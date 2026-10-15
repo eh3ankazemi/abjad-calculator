@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">محاسبه‌گر ابجد</string>
+    <string name="title_activity_main">محاسبه‌گر ابجد</string>
+    <string name="package_name">ir.ehsankazemi.abjad</string>
+    <string name="custom_url_scheme">ir.ehsankazemi.abjad</string>
+</resources>

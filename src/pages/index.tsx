@@ -2,6 +2,7 @@ import Head from 'next/head'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import AbjadAbout from '../components/AbjadAbout'
+import { BrandLogo } from '../components/BrandLogo'
 import LettersTable from '../components/LettersTable'
 import {
   FAQS,
@@ -214,10 +215,8 @@ const HomePage = () => {
       <div className="container">
         <header className="site-header">
           <div className="brand">
-            <span className="brand-logo" aria-hidden="true">
-              ا
-            </span>
-            <span>{SITE_NAME}</span>
+            <BrandLogo size='sm' />
+            <span className="brand-name">{SITE_NAME}</span>
           </div>
           <button
             className="icon-btn"

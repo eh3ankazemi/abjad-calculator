@@ -1,5 +1,5 @@
 {
-  "name": "abjad",
+  "name": "abjad-calculator",
   "private": true,
   "version": "1.0.0",
   "type": "module",
@@ -7,6 +7,7 @@
     "dev": "next dev",
     "start": "next start",
     "format": "prettier --write \"src\"",
+    "prebuild": "node scripts/generate-seo.mjs",
     "build": "next build",
     "android:add": "cap add android",
     "android:sync": "cap sync android",
