@@ -21,6 +21,7 @@ import {
   numberToLetters,
   parseNumberInput,
 } from '../lib/helper'
+import AppInstallBanner from '../components/AppInstallBanner'
 
 type Tab = 'text' | 'number'
 
@@ -211,6 +212,8 @@ const HomePage = () => {
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
       </Head>
+
+      <AppInstallBanner />
 
       <div className="container">
         <header className="site-header">
