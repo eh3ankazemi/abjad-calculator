@@ -4,7 +4,8 @@ import nextEnv from '@next/env'
 nextEnv.loadEnvConfig(process.cwd())
 
 const siteUrl = (
-  process.env.NEXT_PUBLIC_SITE_URL || 'https://abjad-calculator-sooty.vercel.app'
+  process.env.NEXT_PUBLIC_SITE_URL ||
+  'https://abjad-calculator-sooty.vercel.app'
 ).replace(/\/+$/, '')
 
 writeFileSync(

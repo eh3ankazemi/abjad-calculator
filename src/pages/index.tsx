@@ -215,7 +215,7 @@ const HomePage = () => {
       <div className="container">
         <header className="site-header">
           <div className="brand">
-            <BrandLogo size='sm' />
+            <BrandLogo size="sm" />
             <span className="brand-name">{SITE_NAME}</span>
           </div>
           <button
@@ -279,7 +279,11 @@ const HomePage = () => {
                 <div className="chips">
                   <span className="label">نمونه:</span>
                   {EXAMPLES.map((ex) => (
-                    <button key={ex} className="chip" onClick={() => setText(ex)}>
+                    <button
+                      key={ex}
+                      className="chip"
+                      onClick={() => setText(ex)}
+                    >
                       {ex}
                     </button>
                   ))}
@@ -333,12 +337,11 @@ const HomePage = () => {
                         <b>{fmt(result.letterCount)}</b>حرف
                       </div>
                       <div className="stat">
-                        <b>{fmt(digitalRoot(result.totals[active]))}</b>ریشه عددی
+                        <b>{fmt(digitalRoot(result.totals[active]))}</b>ریشه
+                        عددی
                       </div>
                       <div className="stat">
-                        <b>
-                          {result.totals[active] % 2 === 0 ? 'زوج' : 'فرد'}
-                        </b>
+                        <b>{result.totals[active] % 2 === 0 ? 'زوج' : 'فرد'}</b>
                         نوع عدد
                       </div>
                     </div>
@@ -401,11 +404,18 @@ const HomePage = () => {
 
                 {history.length > 0 && (
                   <div className="history">
-                    <span className="label" style={{ fontSize: 13, color: 'var(--muted)' }}>
+                    <span
+                      className="label"
+                      style={{ fontSize: 13, color: 'var(--muted)' }}
+                    >
                       اخیر:
                     </span>
                     {history.map((h) => (
-                      <button key={h} className="chip" onClick={() => setText(h)}>
+                      <button
+                        key={h}
+                        className="chip"
+                        onClick={() => setText(h)}
+                      >
                         {h}
                       </button>
                     ))}
@@ -464,7 +474,10 @@ const HomePage = () => {
                     <div className="big-letters" aria-live="polite">
                       {letters}
                     </div>
-                    <div className="toolbar" style={{ justifyContent: 'center' }}>
+                    <div
+                      className="toolbar"
+                      style={{ justifyContent: 'center' }}
+                    >
                       <button
                         className="btn btn-primary"
                         onClick={() => copy(letters)}

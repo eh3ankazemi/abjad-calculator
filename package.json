@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "next dev",
     "start": "next start",
-    "format": "prettier --write \"src\"",
+    "format": "prettier --write .",
     "prebuild": "node scripts/generate-seo.mjs",
     "build": "next build",
     "android:add": "cap add android",
