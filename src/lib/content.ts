@@ -2,7 +2,7 @@ export const SITE_NAME = 'محاسبه‌گر ابجد'
 
 export const SITE_URL = (
   process.env.NEXT_PUBLIC_SITE_URL ||
-  'https://abjad-calculator-git-main-ehsan14.vercel.app'
+  'https://abjad-calculator-sooty.vercel.app'
 ).replace(/\/+$/, '')
 
 export const SEO_TITLE =
