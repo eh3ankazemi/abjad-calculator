@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useEffect, useState } from 'react'
 import { APP_NAME, APP_PAGE_PATH } from '../lib/appLinks'
+import { Capacitor } from '@capacitor/core'
 
 const DISMISS_KEY = 'abjad-app-banner-dismissed'
 const SNOOZE_DAYS = 7
@@ -12,6 +13,8 @@ const SNOOZE_DAYS = 7
  * با بستن، به‌مدت ۷ روز دوباره نمایش داده نمی‌شود.
  */
 const AppInstallBanner = () => {
+  if (Capacitor.isNativePlatform()) return
+
   const router = useRouter()
   const [visible, setVisible] = useState(true)
 
@@ -19,7 +22,7 @@ const AppInstallBanner = () => {
     try {
       if (!/android/i.test(navigator.userAgent)) return
       //   if (window.matchMedia('(display-mode: standalone)').matches) return
-        const last = Number(localStorage.getItem(DISMISS_KEY) || 0)
+      const last = Number(localStorage.getItem(DISMISS_KEY) || 0)
       if (last && Date.now() - last < SNOOZE_DAYS * 86400000) return
     } catch {}
     const id = setTimeout(() => setVisible(true), 1200)
