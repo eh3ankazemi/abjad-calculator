@@ -548,6 +548,14 @@ const HomePage = () => {
 
         <footer className="footer">
           {SITE_NAME} · محاسبه ابجد کبیر، وسیط، صغیر و مغربی
+          <br />
+          <span>
+            © ۱۴۰۵{' '}
+            <a href="https://ehsan-kazemi.ir/" target="_blank">
+              احسان کاظمی
+            </a>
+            . تمامی حقوق محفوظ است.
+          </span>
         </footer>
       </div>
 
