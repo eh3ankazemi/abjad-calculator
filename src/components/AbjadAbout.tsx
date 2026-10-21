@@ -52,7 +52,9 @@ const AbjadAbout = () => {
         <h2>سوالات متداول درباره ابجد</h2>
         {FAQS.map((f) => (
           <details key={f.q}>
-            <summary>{f.q}</summary>
+            <summary>
+              <h3>{f.q}</h3>
+            </summary>
             <p>{f.a}</p>
           </details>
         ))}

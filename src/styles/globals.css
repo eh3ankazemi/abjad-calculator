@@ -783,6 +783,25 @@ td.ch {
   padding: 36px 0 28px;
 }
 
+.internal-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px 18px;
+  color: var(--accent);
+  font-size: 14px;
+}
+
+.internal-ehsan,
+.internal-links a {
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.internal-ehsan {
+  color: var(--accent);
+}
+
 .toast {
   position: fixed;
   bottom: 24px;

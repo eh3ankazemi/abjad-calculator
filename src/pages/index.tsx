@@ -1,4 +1,5 @@
 import Head from 'next/head'
+import Link from 'next/link'
 import { useRouter } from 'next/router'
 import { useCallback, useEffect, useMemo, useState } from 'react'
 import AbjadAbout from '../components/AbjadAbout'
@@ -204,7 +205,10 @@ const HomePage = () => {
         <meta property="og:title" content={SEO_TITLE} />
         <meta property="og:description" content={SEO_DESCRIPTION} />
         <meta property="og:url" content={`${SITE_URL}/`} />
-        <meta name="twitter:card" content="summary" />
+        <meta property="og:image" content={`${SITE_URL}/og-image.svg`} />
+        <meta property="og:image:width" content="1200" />
+        <meta property="og:image:height" content="630" />
+        <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={SEO_TITLE} />
         <meta name="twitter:description" content={SEO_DESCRIPTION} />
         <script
@@ -542,6 +546,16 @@ const HomePage = () => {
             )}
           </div>
 
+          <nav className="section internal-links" aria-label="راهنمای ابجد">
+            <Link href="/abjad-kabir/">ابجد کبیر</Link>
+            <Link href="/abjad-vasit/">ابجد وسیط</Link>
+            <Link href="/abjad-saghir/">ابجد صغیر</Link>
+            <Link href="/abjad-maghribi/">ابجد مغربی</Link>
+            <Link href="/abjad-table/">جدول ابجد</Link>
+            <Link href="/number-to-abjad/">عدد به ابجد</Link>
+            <Link href="/hesab-jomal/">حساب جمل</Link>
+          </nav>
+
           <section className="section" id="table">
             <h2>جدول کامل ارزش حروف ابجد</h2>
             <LettersTable zhZero={zhZero} />
@@ -551,11 +565,20 @@ const HomePage = () => {
         </main>
 
         <footer className="footer">
+          <nav className="internal-links" aria-label="صفحه‌های سایت">
+            <Link href="/hesab-jomal/">درباره حساب جمل</Link>
+            <Link href="/abjad-table/">جدول حروف</Link>
+            <Link href="/number-to-abjad/">تبدیل عدد به حرف</Link>
+          </nav>
           {SITE_NAME} · محاسبه ابجد کبیر، وسیط، صغیر و مغربی
           <br />
           <span>
             © ۱۴۰۵{' '}
-            <a href="https://ehsan-kazemi.ir/" target="_blank">
+            <a
+              className="internal-ehsan"
+              href="https://ehsan-kazemi.ir/"
+              target="_blank"
+            >
               احسان کاظمی
             </a>
             . تمامی حقوق محفوظ است.

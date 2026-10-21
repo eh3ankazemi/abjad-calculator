@@ -10,6 +10,13 @@ export default function Document() {
         <meta charSet="utf-8" />
         <meta name="theme-color" content="#5b5bd6" />
         <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+        <link
+          rel="preload"
+          href="/fonts/vazirmatn-arabic.woff2"
+          as="font"
+          type="font/woff2"
+          crossOrigin="anonymous"
+        />
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </Head>
       <body>
