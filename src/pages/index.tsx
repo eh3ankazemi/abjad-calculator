@@ -211,6 +211,10 @@ const HomePage = () => {
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+        <meta
+          name="google-site-verification"
+          content="6ChpeaxAvopKBnRBFoZFtjvB8mf0O0RWb8P7tcrRTAA"
+        />
       </Head>
 
       <AppInstallBanner />
