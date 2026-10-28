@@ -1,5 +1,5 @@
 // ⚠️ مقادیر زیر را با اطلاعات واقعی اپ جایگزین کنید
-export const APP_PACKAGE = 'ir.example.abjad'
+export const APP_PACKAGE = 'ir.ehsankazemi.abjad'
 
 export const APP_NAME = 'ابجد'
 

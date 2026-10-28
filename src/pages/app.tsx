@@ -53,12 +53,13 @@ const AppPage = () => (
         {STORES.map((s) => (
           <a
             key={s.key}
-            className={s.external ? 'store disable' : 'store'}
-            href={s.external ? '#' : s.href}
-            {...(s.external
+            className={s.key === 'myket' ? 'store disable' : 'store'}
+            href={s.key === 'myket' ? '#' : s.href}
+            {...(s.key === 'myket'
               ? {}
-              : // ? { target: '_blank', rel: 'noopener noreferrer' }
-                { download: true })}
+              : s.external
+                ? { target: '_blank', rel: 'noopener noreferrer' }
+                : { download: true })}
           >
             <span className="store-icon" aria-hidden>
               {s.icon}
