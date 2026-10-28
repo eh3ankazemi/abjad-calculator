@@ -242,7 +242,7 @@ const HomePage = () => {
         <section className="hero">
           <span className="badge">رایگان · سریع · بدون نیاز به ثبت‌نام</span>
           <h1>
-            تبدیل <span>حروف ابجد</span> به عدد
+            ماشین حساب <span>ابجد آنلاین</span>
           </h1>
           <p>
             نام یا عبارت خود را بنویسید تا ابجد کبیر، وسیط، صغیر و مغربی آن
@@ -251,6 +251,13 @@ const HomePage = () => {
         </section>
 
         <main>
+          <section className="section intro">
+            <h2>محاسبه عدد ابجد اسم و کلمات</h2>
+            <p>
+              نام یا عبارت را وارد کنید تا ارزش عددی حروف و جمع ابجد آن را در
+              چهار روش ببینید.
+            </p>
+          </section>
           <div className="card" id="calculator">
             <div className="tabs" role="tablist">
               <button
