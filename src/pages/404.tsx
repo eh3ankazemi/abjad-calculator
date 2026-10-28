@@ -8,6 +8,7 @@ export default function Custom404() {
       <Head>
         <title>صفحه پیدا نشد | ابجد</title>
         <meta name="description" content="صفحه‌ای که درخواست کردید پیدا نشد." />
+        <meta name="robots" content="noindex, follow" />
       </Head>
 
       <div className="error-page">

@@ -206,11 +206,16 @@ const HomePage = () => {
         <meta property="og:description" content={SEO_DESCRIPTION} />
         <meta property="og:url" content={`${SITE_URL}/`} />
         <meta property="og:image" content={`${SITE_URL}/og-image.svg`} />
+        <meta
+          property="og:image:alt"
+          content="ماشین حساب ابجد برای محاسبه عدد اسم و کلمات"
+        />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={SEO_TITLE} />
         <meta name="twitter:description" content={SEO_DESCRIPTION} />
+        <meta name="twitter:image" content={`${SITE_URL}/og-image.svg`} />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
